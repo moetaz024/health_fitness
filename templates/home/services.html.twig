@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block body %}
+<h1 class="mb-3">Nos Services</h1>
+
+{# --- Filtre Catégorie --- #}
+<div class="mb-3">
+  <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services') }}">Tous</a>
+  <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services', {cat:'yoga'}) }}">Yoga</a>
+  <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services', {cat:'cardio'}) }}">Cardio</a>
+  <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services', {cat:'boxe'}) }}">Boxe</a>
+</div>
+
+{# --- Filtre Coach --- #}
+<div class="mb-4">
+  <select class="form-select w-auto" onchange="location = this.value;">
+    <option value="{{ path('client_services') }}">-- Filtrer par coach --</option>
+    {% for c in coachs %}
+      <option value="{{ path('client_services', {coach: c.id}) }}"
+        {{ selectedCoach == c.id ? 'selected' : '' }}>
+        {{ c.nom }}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="row">
+  {% for s in services %}
+    <div class="col-md-4 mb-3">
+      <div class="card p-2 h-100">
+        <h5>{{ s.titre }}</h5>
+        <p>{{ s.description|slice(0,120) }}...</p>
+        <p><b>Prix:</b> {{ s.prix }} DT</p>
+        <p><b>Coach:</b> {{ s.coach.nom }}</p>
+
+        <a class="btn btn-primary btn-sm"
+           href="{{ path('client_service_show', {id: s.id}) }}">
+           Voir détail
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <p>Aucun service trouvé.</p>
+  {% endfor %}
+</div>
+{% endblock %}

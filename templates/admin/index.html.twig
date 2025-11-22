@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<h1 class="mb-4">Dashboard Admin</h1>
+
+<div class="row mb-4">
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Réservations</div>
+      <h3>{{ resCount }}</h3>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Commandes</div>
+      <h3>{{ orderCount }}</h3>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Produits</div>
+      <h3>{{ prodCount }}</h3>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Services</div>
+      <h3>{{ servCount }}</h3>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Coachs</div>
+      <h3>{{ coachCount }}</h3>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <div class="card p-3 text-center">
+      <div>Hors stock</div>
+      <h3>{{ outStock }}</h3>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h4>Gestion</h4>
+<ul class="list-group">
+  <li class="list-group-item">
+    <a href="{{ path('app_coach_index') }}">Gérer Coachs</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{{ path('app_service_index') }}">Gérer Services</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{{ path('app_reservation_index') }}">Gérer Réservations</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{{ path('app_product_index') }}">Gérer Produits</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{{ path('app_order_index') }}">Gérer Commandes</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{{ path('app_order_item_index') }}">Gérer Order Items</a>
+  </li>
+</ul>
+{% endblock %}

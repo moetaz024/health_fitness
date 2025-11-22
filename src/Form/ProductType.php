@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
+
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -17,7 +20,20 @@ class ProductType extends AbstractType
             ->add('prix')
             ->add('stock')
             ->add('categorie')
-            ->add('image')
+
+            // ✅ Upload field (مش مربوط مباشرة بالـentity)
+            ->add('imageFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Image produit',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
+                        'mimeTypesMessage' => 'Upload صورة (jpg/png/webp) فقط',
+                    ])
+                ],
+            ])
         ;
     }
 

@@ -10,8 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/service')]
+#[Route('/admin/service')]
+#[IsGranted('ROLE_ADMIN')]
 final class ServiceController extends AbstractController
 {
     #[Route(name: 'app_service_index', methods: ['GET'])]
@@ -30,6 +32,17 @@ final class ServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // ✅ HANDLE UPLOAD
+            $file = $form->get('imageFile')->getData();
+            if ($file) {
+                $newName = uniqid() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('service_upload_dir'), $newName);
+
+                // ⚠️ إذا اسم champ متاع الصورة موش "image" بدّل setImage()
+                $service->setImage($newName);
+            }
+
             $entityManager->persist($service);
             $entityManager->flush();
 
@@ -57,6 +70,16 @@ final class ServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // ✅ HANDLE UPLOAD (edit)
+            $file = $form->get('imageFile')->getData();
+            if ($file) {
+                $newName = uniqid() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('service_upload_dir'), $newName);
+
+                $service->setImage($newName);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);

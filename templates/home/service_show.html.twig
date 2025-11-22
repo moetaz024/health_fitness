@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail Service{% endblock %}
+
+{% block body %}
+<h1>{{ service.titre }}</h1>
+
+<p>{{ service.description }}</p>
+
+<ul class="list-group mb-3">
+  <li class="list-group-item"><b>Catégorie:</b> {{ service.categorie }}</li>
+  <li class="list-group-item"><b>Durée:</b> {{ service.duree }} min</li>
+  <li class="list-group-item"><b>Prix:</b> {{ service.prix }} DT</li>
+  <li class="list-group-item">
+    <b>Coach:</b>
+    {{ service.coach.nom }}
+  </li>
+</ul>
+
+<a class="btn btn-success"
+   href="{{ path('client_service_reserve', {id: service.id}) }}">
+   Réserver
+</a>
+
+<a class="btn btn-secondary ms-2"
+   href="{{ path('client_services') }}">
+   Retour
+</a>
+{% endblock %}

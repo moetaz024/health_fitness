@@ -1,8 +1,13 @@
 <?php
+
 namespace App\Controller;
 
+use App\Entity\Service;
+use App\Entity\Reservation;
 use App\Repository\ServiceRepository;
 use App\Repository\CoachRepository;
+use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    /**
+     * 1) LIST SERVICES + FILTRES (cat / coach)
+     * URL: /services?cat=yoga  or  /services?coach=2
+     */
     #[Route('/services', name: 'client_services')]
     public function services(
         Request $request,
@@ -33,6 +42,65 @@ class HomeController extends AbstractController
             'coachs' => $coachRepo->findAll(),
             'selectedCat' => $cat,
             'selectedCoach' => $coachId,
+        ]);
+    }
+
+    /**
+     * 2) DETAIL SERVICE
+     * URL: /service/{id}
+     */
+    #[Route('/service/{id}', name: 'client_service_show')]
+    public function showService(Service $service): Response
+    {
+        return $this->render('home/service_show.html.twig', [
+            'service' => $service
+        ]);
+    }
+
+    /**
+     * 3) RESERVER SERVICE (create Reservation)
+     * URL: /service/{id}/reserve
+     */
+    #[Route('/service/{id}/reserve', name: 'client_service_reserve')]
+    public function reserveService(
+        Service $service,
+        EntityManagerInterface $em
+    ): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $reservation = new Reservation();
+        $reservation->setUser($this->getUser());
+        $reservation->setService($service);
+        $reservation->setDateReservation(new \DateTime());
+
+        // ✅ بدلنا setStatut -> setEtat
+        $reservation->setStatus('en_attente');
+
+        $em->persist($reservation);
+        $em->flush();
+
+        $this->addFlash('success', 'Réservation effectuée ✅');
+
+        return $this->redirectToRoute('client_reservations');
+    }
+
+    /**
+     * 4) MES RESERVATIONS (list reservations of connected user)
+     * URL: /reservations
+     */
+    #[Route('/reservations', name: 'client_reservations')]
+    public function myReservations(ReservationRepository $repo): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $reservations = $repo->findBy(
+            ['user' => $this->getUser()],
+            ['dateReservation' => 'DESC']
+        );
+
+        return $this->render('reservation_client/index.html.twig', [
+            'reservations' => $reservations
         ]);
     }
 }

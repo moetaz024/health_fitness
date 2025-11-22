@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+<h1>Produits Fitness</h1>
+
+<div class="row mt-3">
+  {% for p in products %}
+    <div class="col-md-3 mb-3">
+      <div class="card p-2 h-100">
+
+        {# ✅ Image produit #}
+        {% if p.image %}
+          <img
+            src="{{ asset('uploads/products/' ~ p.image) }}"
+            class="img-fluid mb-2 rounded"
+            style="height:140px; object-fit:cover;"
+            alt="product image"
+          >
+        {% endif %}
+
+        <h6>{{ p.nom }}</h6>
+        <p><b>Prix:</b> {{ p.prix }} DT</p>
+        <p><b>Stock:</b> {{ p.stock }}</p>
+
+        <a class="btn btn-sm btn-primary"
+           href="{{ path('cart_add', {id:p.id}) }}">
+          Ajouter au panier
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <p>Aucun produit.</p>
+  {% endfor %}
+</div>
+
+<a class="btn btn-outline-dark mt-2" href="{{ path('cart_show') }}">
+  Voir panier
+</a>
+{% endblock %}

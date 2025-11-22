@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+<h1>Mes commandes</h1>
+
+{% for o in orders %}
+  <div class="card p-2 mb-3">
+    <b>Commande #{{ o.id }}</b><br>
+    Date: {{ o.dateCreation|date('Y-m-d H:i') }}<br>
+    Total: {{ o.montantTotal }} DT<br>
+    Statut: {{ o.statut ?? o.etat ?? o.status }}  {# حسب اسم الحقل عندك #}
+
+    <hr>
+    <ul>
+      {% for it in o.orderItems %}
+        <li>{{ it.product.nom }} x {{ it.quantite }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <p>Aucune commande.</p>
+{% endfor %}
+
+<a class="btn btn-primary" href="{{ path('client_products') }}">
+  Retour Produits
+</a>
+{% endblock %}

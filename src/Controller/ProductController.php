@@ -10,8 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/product')]
+#[Route('/admin/product')]
+#[IsGranted('ROLE_ADMIN')]
 final class ProductController extends AbstractController
 {
     #[Route(name: 'app_product_index', methods: ['GET'])]
@@ -30,6 +32,17 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // ✅ HANDLE UPLOAD (new)
+            $file = $form->get('imageFile')->getData();
+            if ($file) {
+                $newName = uniqid() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('product_upload_dir'), $newName);
+
+                // ⚠️ إذا champ موش اسمو image بدّل setImage()
+                $product->setImage($newName);
+            }
+
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -57,6 +70,16 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // ✅ HANDLE UPLOAD (edit)
+            $file = $form->get('imageFile')->getData();
+            if ($file) {
+                $newName = uniqid() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('product_upload_dir'), $newName);
+
+                $product->setImage($newName);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);

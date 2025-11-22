@@ -5,7 +5,6 @@
 {% block body %}
 <h1 class="mb-3">Nos Services</h1>
 
-{# --- Filtre Catégorie --- #}
 <div class="mb-3">
   <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services') }}">Tous</a>
   <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services', {cat:'yoga'}) }}">Yoga</a>
@@ -13,7 +12,6 @@
   <a class="btn btn-outline-dark btn-sm" href="{{ path('client_services', {cat:'boxe'}) }}">Boxe</a>
 </div>
 
-{# --- Filtre Coach --- #}
 <div class="mb-4">
   <select class="form-select w-auto" onchange="location = this.value;">
     <option value="{{ path('client_services') }}">-- Filtrer par coach --</option>
@@ -30,6 +28,17 @@
   {% for s in services %}
     <div class="col-md-4 mb-3">
       <div class="card p-2 h-100">
+
+        {# ✅ Image service #}
+        {% if s.image %}
+          <img
+            src="{{ asset('uploads/services/' ~ s.image) }}"
+            class="img-fluid mb-2 rounded"
+            style="height:160px; object-fit:cover;"
+            alt="service image"
+          >
+        {% endif %}
+
         <h5>{{ s.titre }}</h5>
         <p>{{ s.description|slice(0,120) }}...</p>
         <p><b>Prix:</b> {{ s.prix }} DT</p>

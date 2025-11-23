@@ -1,47 +1,49 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base_client.html.twig' %}
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-<h1>Panier</h1>
+<h1 class="mb-3">Panier</h1>
 
 {% if items is empty %}
-  <p>Panier vide.</p>
-  <a class="btn btn-primary" href="{{ path('client_products') }}">Retour Produits</a>
+  <div class="card p-4 text-center">
+    <p class="mb-2">Panier vide.</p>
+    <a class="btn btn-primary" href="{{ path('client_products') }}">Retour Produits</a>
+  </div>
 {% else %}
-<table class="table table-striped mt-3">
-  <thead>
-    <tr>
-      <th>Produit</th>
-      <th>Qte</th>
-      <th>Total ligne</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for it in items %}
-    <tr>
-      <td>{{ it.product.nom }}</td>
-      <td>{{ it.qty }}</td>
-      <td>{{ it.lineTotal }} DT</td>
-      <td>
-        <a class="btn btn-sm btn-danger"
-           href="{{ path('cart_remove', {id: it.product.id}) }}">
-           X
-        </a>
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+<div class="card p-3">
+  <table class="table table-striped align-middle mb-0">
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th style="width:120px">Qte</th>
+        <th style="width:140px">Total ligne</th>
+        <th style="width:80px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for it in items %}
+        <tr>
+          <td>{{ it.product.nom }}</td>
+          <td>{{ it.qty }}</td>
+          <td>{{ it.lineTotal }} DT</td>
+          <td>
+            <a class="btn btn-sm btn-outline-light"
+               href="{{ path('cart_remove', {id: it.product.id}) }}">
+               Supprimer
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-<h3>Total: {{ total }} DT</h3>
-
-<a class="btn btn-success" href="{{ path('cart_checkout') }}">
-  Valider panier
-</a>
-<a class="btn btn-secondary ms-2" href="{{ path('client_products') }}">
-  Continuer achats
-</a>
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <h3 class="mb-0">Total: {{ total }} DT</h3>
+  <div class="d-flex gap-2">
+    <a class="btn btn-success" href="{{ path('cart_checkout') }}">Valider panier</a>
+    <a class="btn btn-outline-light" href="{{ path('client_products') }}">Continuer achats</a>
+  </div>
+</div>
 {% endif %}
 {% endblock %}

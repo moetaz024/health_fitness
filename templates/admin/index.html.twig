@@ -1,75 +1,39 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block body %}
 <h1 class="mb-4">Dashboard Admin</h1>
 
-<div class="row mb-4">
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Réservations</div>
-      <h3>{{ resCount }}</h3>
+<div class="row g-3 mb-4">
+  {% set cards = [
+    {'label':'Réservations','value':resCount,'icon':'📌'},
+    {'label':'Commandes','value':orderCount,'icon':'🧾'},
+    {'label':'Produits','value':prodCount,'icon':'🏋️'},
+    {'label':'Services','value':servCount,'icon':'🧘'},
+    {'label':'Coachs','value':coachCount,'icon':'👟'},
+    {'label':'Hors stock','value':outStock,'icon':'⚠️'}
+  ] %}
+  {% for c in cards %}
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card p-3 text-center h-100">
+        <div class="fs-3">{{ c.icon }}</div>
+        <div class="text-muted">{{ c.label }}</div>
+        <div class="fs-3 fw-bold">{{ c.value }}</div>
+      </div>
     </div>
-  </div>
-
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Commandes</div>
-      <h3>{{ orderCount }}</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Produits</div>
-      <h3>{{ prodCount }}</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Services</div>
-      <h3>{{ servCount }}</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Coachs</div>
-      <h3>{{ coachCount }}</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3 mb-2">
-    <div class="card p-3 text-center">
-      <div>Hors stock</div>
-      <h3>{{ outStock }}</h3>
-    </div>
-  </div>
+  {% endfor %}
 </div>
 
-<hr>
-
-<h4>Gestion</h4>
-<ul class="list-group">
-  <li class="list-group-item">
-    <a href="{{ path('app_coach_index') }}">Gérer Coachs</a>
-  </li>
-  <li class="list-group-item">
-    <a href="{{ path('app_service_index') }}">Gérer Services</a>
-  </li>
-  <li class="list-group-item">
-    <a href="{{ path('app_reservation_index') }}">Gérer Réservations</a>
-  </li>
-  <li class="list-group-item">
-    <a href="{{ path('app_product_index') }}">Gérer Produits</a>
-  </li>
-  <li class="list-group-item">
-    <a href="{{ path('app_order_index') }}">Gérer Commandes</a>
-  </li>
-  <li class="list-group-item">
-    <a href="{{ path('app_order_item_index') }}">Gérer Order Items</a>
-  </li>
-</ul>
+<div class="card p-3">
+  <h4 class="mb-3">Gestion</h4>
+  <div class="list-group list-group-flush">
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_coach_index') }}">Gérer Coachs</a>
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_service_index') }}">Gérer Services</a>
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_reservation_index') }}">Gérer Réservations</a>
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_product_index') }}">Gérer Produits</a>
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_order_index') }}">Gérer Commandes</a>
+    <a class="list-group-item bg-transparent text-light" href="{{ path('app_order_item_index') }}">Gérer Order Items</a>
+  </div>
+</div>
 {% endblock %}

@@ -1,30 +1,31 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base_client.html.twig' %}
 {% block title %}Produits{% endblock %}
 
 {% block body %}
-<h1>Produits Fitness</h1>
+<div class="hf-hero mb-4">
+  <h1 class="mb-1">Produits Fitness</h1>
+  <p class="text-muted mb-0">Équipe-toi avec la meilleure qualité.</p>
+</div>
 
-<div class="row mt-3">
+<div class="row g-3">
   {% for p in products %}
-    <div class="col-md-3 mb-3">
+    <div class="col-6 col-md-3">
       <div class="card p-2 h-100">
 
-        {# ✅ Image produit #}
         {% if p.image %}
-          <img
-            src="{{ asset('uploads/products/' ~ p.image) }}"
-            class="img-fluid mb-2 rounded"
-            style="height:140px; object-fit:cover;"
-            alt="product image"
-          >
+          <img src="{{ asset('uploads/products/' ~ p.image) }}"
+               class="hf-img mb-2" alt="product image">
         {% endif %}
 
-        <h6>{{ p.nom }}</h6>
-        <p><b>Prix:</b> {{ p.prix }} DT</p>
-        <p><b>Stock:</b> {{ p.stock }}</p>
+        <h6 class="mb-1">{{ p.nom }}</h6>
+        <div class="small text-muted mb-2">{{ p.categorie }}</div>
 
-        <a class="btn btn-sm btn-primary"
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="fw-bold">{{ p.prix }} DT</div>
+          <div class="small text-muted">Stock: {{ p.stock }}</div>
+        </div>
+
+        <a class="btn btn-primary btn-sm mt-2 w-100"
            href="{{ path('cart_add', {id:p.id}) }}">
           Ajouter au panier
         </a>
@@ -35,7 +36,7 @@
   {% endfor %}
 </div>
 
-<a class="btn btn-outline-dark mt-2" href="{{ path('cart_show') }}">
+<a class="btn btn-outline-light mt-3" href="{{ path('cart_show') }}">
   Voir panier
 </a>
 {% endblock %}

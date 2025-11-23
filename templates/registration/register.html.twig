@@ -1,23 +1,108 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_client.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+<div class="row justify-content-center">
+  <div class="col-md-7 col-lg-6">
 
-    <h1>Register</h1>
+    <div class="card p-4">
+      <h2 class="mb-1 text-center">Créer un compte</h2>
+      <p class="text-muted text-center mb-4">
+        Crée ton espace personnel Health Fitness.
+      </p>
 
-    {{ form_errors(registrationForm) }}
+      {{ form_start(registrationForm, {'attr': {'novalidate':'novalidate'}}) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+      <div class="row g-3">
+        <div class="col-md-6">
+          {{ form_label(registrationForm.nom) }}
+          {{ form_widget(registrationForm.nom, {
+            attr: {class:'form-control form-control-lg', placeholder:'Nom'}
+          }) }}
+          {{ form_errors(registrationForm.nom) }}
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="col-md-6">
+          {{ form_label(registrationForm.prenom) }}
+          {{ form_widget(registrationForm.prenom, {
+            attr: {class:'form-control form-control-lg', placeholder:'Prénom'}
+          }) }}
+          {{ form_errors(registrationForm.prenom) }}
+        </div>
+
+        <div class="col-md-12">
+          {{ form_label(registrationForm.dateNaissance) }}
+          {{ form_widget(registrationForm.dateNaissance, {
+            attr: {class:'form-control form-control-lg'}
+          }) }}
+          {{ form_errors(registrationForm.dateNaissance) }}
+        </div>
+
+        <div class="col-md-12">
+          {{ form_label(registrationForm.email) }}
+          {{ form_widget(registrationForm.email, {
+            attr: {class:'form-control form-control-lg', placeholder:'ex: name@gmail.com'}
+          }) }}
+          {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="col-md-12">
+          {{ form_label(registrationForm.plainPassword.first) }}
+          <div class="input-group">
+            {{ form_widget(registrationForm.plainPassword.first, {
+              attr: {class:'form-control form-control-lg', id:'reg_password'}
+            }) }}
+            <button class="btn btn-outline-secondary toggle-password"
+                    type="button" data-target="reg_password">👁</button>
+          </div>
+          {{ form_errors(registrationForm.plainPassword.first) }}
+        </div>
+
+        <div class="col-md-12">
+          {{ form_label(registrationForm.plainPassword.second) }}
+          <div class="input-group">
+            {{ form_widget(registrationForm.plainPassword.second, {
+              attr: {class:'form-control form-control-lg', id:'reg_password_confirm'}
+            }) }}
+            <button class="btn btn-outline-secondary toggle-password"
+                    type="button" data-target="reg_password_confirm">👁</button>
+          </div>
+          {{ form_errors(registrationForm.plainPassword.second) }}
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-check">
+            {{ form_widget(registrationForm.agreeTerms, {attr:{class:'form-check-input'}}) }}
+            {{ form_label(registrationForm.agreeTerms, null, {label_attr:{class:'form-check-label'}}) }}
+          </div>
+          {{ form_errors(registrationForm.agreeTerms) }}
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-lg w-100 mt-3">
+        Créer mon compte
+      </button>
+
+      <div class="text-center mt-3">
+        <span class="text-muted">Déjà inscrit ?</span>
+        <a href="{{ path('app_login') }}" class="fw-semibold">Se connecter</a>
+      </div>
+
+      {{ form_end(registrationForm) }}
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+  btn.addEventListener('click', function () {
+    const targetId = this.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+    input.type = (input.type === 'password') ? 'text' : 'password';
+  });
+});
+</script>
 {% endblock %}

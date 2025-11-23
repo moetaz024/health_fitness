@@ -1,29 +1,37 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base_client.html.twig' %}
 {% block title %}Mes commandes{% endblock %}
 
 {% block body %}
-<h1>Mes commandes</h1>
+<h1 class="mb-3">Mes commandes</h1>
 
 {% for o in orders %}
-  <div class="card p-2 mb-3">
-    <b>Commande #{{ o.id }}</b><br>
-    Date: {{ o.dateCreation|date('Y-m-d H:i') }}<br>
-    Total: {{ o.montantTotal }} DT<br>
-    Statut: {{ o.statut ?? o.etat ?? o.status }}  {# حسب اسم الحقل عندك #}
+  <div class="card p-3 mb-3">
+    <div class="d-flex justify-content-between">
+      <div>
+        <b>Commande #{{ o.id }}</b><br>
+        <span class="text-muted small">{{ o.dateCreation|date('Y-m-d H:i') }}</span>
+      </div>
+      <div class="text-end">
+        <div class="fw-bold">{{ o.montantTotal }} DT</div>
+        <div class="badge-soft mt-1">{{ o.statut ?? o.etat ?? o.status }}</div>
+      </div>
+    </div>
 
     <hr>
-    <ul>
+
+    <ul class="mb-0">
       {% for it in o.orderItems %}
-        <li>{{ it.product.nom }} x {{ it.quantite }}</li>
+        <li>{{ it.product.nom }} x {{ it.quantiter ?? it.quantite }}</li>
       {% endfor %}
     </ul>
   </div>
 {% else %}
-  <p>Aucune commande.</p>
+  <div class="card p-4 text-center">
+    <p>Aucune commande.</p>
+  </div>
 {% endfor %}
 
-<a class="btn btn-primary" href="{{ path('client_products') }}">
+<a class="btn btn-outline-light" href="{{ path('client_products') }}">
   Retour Produits
 </a>
 {% endblock %}

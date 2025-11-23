@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Admin | Health Fitness{% endblock %}</title>
+
+  {{ encore_entry_link_tags('app') }}
+  {{ encore_entry_script_tags('app') }}
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ path('admin_dashboard') }}">Admin Dashboard</a>
+
+    <div class="d-flex gap-2">
+      <a class="btn btn-sm btn-light" href="{{ path('client_services') }}">↩ Retour site</a>
+      <a class="btn btn-sm btn-outline-light" href="{{ path('app_logout') }}">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  {% block body %}{% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base_client.html.twig' %}
+{% block title %}Coachs{% endblock %}
+
+{% block body %}
+<div class="hf-hero mb-4">
+  <h1 class="mb-1">Nos Coachs</h1>
+  <p class="text-muted mb-0">Des experts certifiés pour t’accompagner.</p>
+</div>
+
+<div class="row g-3">
+  {% for c in coachs %}
+    <div class="col-6 col-md-3">
+      <div class="card p-2 h-100 text-center">
+        {% if c.photo %}
+          <img src="{{ asset('uploads/coachs/' ~ c.photo) }}"
+               class="hf-img mb-2" alt="coach photo">
+        {% endif %}
+
+        <h5 class="mb-0">{{ c.nom }}</h5>
+        <div class="text-muted small mb-2">{{ c.specialite }}</div>
+
+        <a class="btn btn-outline-light btn-sm"
+           href="{{ path('client_coach_show', {id: c.id}) }}">
+          Voir détail
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <p>Aucun coach.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,29 +1,42 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base_client.html.twig' %}
 {% block title %}Détail Service{% endblock %}
 
 {% block body %}
-<h1>{{ service.titre }}</h1>
+<div class="row g-4">
+  <div class="col-md-6">
+    {% if service.image %}
+      <img src="{{ asset('uploads/services/' ~ service.image) }}"
+           class="w-100 rounded hf-img" style="height:340px;" alt="service image">
+    {% endif %}
+  </div>
 
-<p>{{ service.description }}</p>
+  <div class="col-md-6">
+    <h1 class="mb-2">{{ service.titre }}</h1>
+    <p class="text-muted">{{ service.categorie }} • {{ service.duree }} min</p>
 
-<ul class="list-group mb-3">
-  <li class="list-group-item"><b>Catégorie:</b> {{ service.categorie }}</li>
-  <li class="list-group-item"><b>Durée:</b> {{ service.duree }} min</li>
-  <li class="list-group-item"><b>Prix:</b> {{ service.prix }} DT</li>
-  <li class="list-group-item">
-    <b>Coach:</b>
-    {{ service.coach.nom }}
-  </li>
-</ul>
+    <p class="mb-3">{{ service.description }}</p>
 
-<a class="btn btn-success"
-   href="{{ path('client_service_reserve', {id: service.id}) }}">
-   Réserver
-</a>
+    <div class="card p-3 mb-3">
+      <div class="d-flex justify-content-between">
+        <div>Prix</div>
+        <div class="fw-bold fs-4">{{ service.prix }} DT</div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <div>Coach</div>
+        <div class="fw-bold">{{ service.coach.nom }}</div>
+      </div>
+    </div>
 
-<a class="btn btn-secondary ms-2"
-   href="{{ path('client_services') }}">
-   Retour
-</a>
+    <div class="d-flex gap-2">
+      <a class="btn btn-success"
+         href="{{ path('client_service_reserve', {id: service.id}) }}">
+         Réserver
+      </a>
+      <a class="btn btn-outline-light"
+         href="{{ path('client_services') }}">
+         Retour
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock %}

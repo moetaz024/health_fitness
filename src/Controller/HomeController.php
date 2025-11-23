@@ -15,19 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * 1) LIST SERVICES + FILTRES (cat / coach)
-     * URL: /services?cat=yoga  or  /services?coach=2
-     */
+    #[Route('/', name: 'home')]
+    public function home(): Response
+    {
+        return $this->redirectToRoute('client_services');
+    }
+
     #[Route('/services', name: 'client_services')]
     public function services(
         Request $request,
         ServiceRepository $serviceRepo,
         CoachRepository $coachRepo
-    ): Response
-    {
-        $cat = $request->query->get('cat');        // /services?cat=yoga
-        $coachId = $request->query->get('coach'); // /services?coach=2
+    ): Response {
+        $cat = $request->query->get('cat');
+        $coachId = $request->query->get('coach');
 
         if ($cat) {
             $services = $serviceRepo->findBy(['categorie' => $cat]);
@@ -45,10 +46,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * 2) DETAIL SERVICE
-     * URL: /service/{id}
-     */
     #[Route('/service/{id}', name: 'client_service_show')]
     public function showService(Service $service): Response
     {
@@ -57,38 +54,26 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * 3) RESERVER SERVICE (create Reservation)
-     * URL: /service/{id}/reserve
-     */
     #[Route('/service/{id}/reserve', name: 'client_service_reserve')]
     public function reserveService(
         Service $service,
         EntityManagerInterface $em
-    ): Response
-    {
+    ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $reservation = new Reservation();
         $reservation->setUser($this->getUser());
         $reservation->setService($service);
         $reservation->setDateReservation(new \DateTime());
-
-        // ✅ بدلنا setStatut -> setEtat
         $reservation->setStatus('en_attente');
 
         $em->persist($reservation);
         $em->flush();
 
         $this->addFlash('success', 'Réservation effectuée ✅');
-
         return $this->redirectToRoute('client_reservations');
     }
 
-    /**
-     * 4) MES RESERVATIONS (list reservations of connected user)
-     * URL: /reservations
-     */
     #[Route('/reservations', name: 'client_reservations')]
     public function myReservations(ReservationRepository $repo): Response
     {

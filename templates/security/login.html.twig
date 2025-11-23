@@ -1,34 +1,89 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
+{% extends 'base_client.html.twig' %}
+{% block title %}Se connecter{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="card p-4">
+      <h2 class="mb-1 text-center">Se connecter</h2>
+      <p class="text-muted text-center mb-4">
+        Entre ton Gmail et mot de passe.
+      </p>
+
+      {% if error %}
+        <div class="alert alert-danger border-0 shadow-sm">
+          {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
-    {% endif %}
+      {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+      <form method="post" novalidate>
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+        <div class="mb-3">
+          <label for="inputEmail" class="form-label">Gmail</label>
+          <input type="email"
+                 value="{{ last_username }}"
+                 name="email"
+                 id="inputEmail"
+                 class="form-control form-control-lg"
+                 autocomplete="email"
+                 required
+                 autofocus
+                 placeholder="ex: name@gmail.com">
+        </div>
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Mot de passe</label>
+          <div class="input-group">
+            <input type="password"
+                   name="password"
+                   id="inputPassword"
+                   class="form-control form-control-lg"
+                   autocomplete="current-password"
+                   required>
+            <button class="btn btn-outline-secondary toggle-password"
+                    type="button" data-target="inputPassword">👁</button>
+          </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="_remember_me" id="remember_me">
+            <label class="form-check-label" for="remember_me">
+              Se souvenir de moi
+            </label>
+          </div>
+
+          <a class="small text-muted" href="{{ path('app_forgot_password') }}">
+            Mot de passe oublié ?
+          </a>
+        </div>
+
+        <button class="btn btn-success btn-lg w-100" type="submit">
+          Login
+        </button>
+
+        <div class="text-center mt-3">
+          <span class="text-muted">Pas encore de compte ?</span>
+          <a href="{{ path('app_register') }}" class="fw-semibold">Créer un compte</a>
+        </div>
+
+      </form>
     </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+  btn.addEventListener('click', function () {
+    const targetId = this.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+    input.type = (input.type === 'password') ? 'text' : 'password';
+  });
+});
+</script>
 {% endblock %}

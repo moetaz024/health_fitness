@@ -1,32 +1,43 @@
 {% extends 'base_client.html.twig' %}
-{% block title %}Coachs{% endblock %}
+{% block title %}Nos Coachs Experts - Health Fitness{% endblock %}
 
 {% block body %}
-<div class="hf-hero mb-4">
-  <h1 class="mb-1">Nos Coachs</h1>
-  <p class="text-muted mb-0">Des experts certifiés pour t’accompagner.</p>
-</div>
+<section class="hf-section">
+  <div class="container">
+    <h2 class="hf-section-title">NOS <span class="hf-hero-highlight">COACHS EXPERTS</span></h2>
+    <p class="text-center text-muted mb-5">Rencontrez notre équipe de coachs certifiés, dédiés à votre réussite sportive.</p>
 
-<div class="row g-3">
-  {% for c in coachs %}
-    <div class="col-6 col-md-3">
-      <div class="card p-2 h-100 text-center">
-        {% if c.photo %}
-          <img src="{{ asset('uploads/coachs/' ~ c.photo) }}"
-               class="hf-img mb-2" alt="coach photo">
-        {% endif %}
+    <div class="row g-4">
+      {% for c in coachs %}
+        <div class="col-lg-3 col-md-6">
+          <div class="hf-card text-center h-100">
+            {% if c.photo %}
+              <img src="{{ asset('uploads/coachs/' ~ c.photo) }}" class="w-100 hf-img" alt="{{ c.nom }}">
+            {% else %}
+              <div class="hf-img bg-dark d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-tie fa-3x text-muted"></i>
+              </div>
+            {% endif %}
 
-        <h5 class="mb-0">{{ c.nom }}</h5>
-        <div class="text-muted small mb-2">{{ c.specialite }}</div>
+            <div class="p-4">
+              <h5 class="mb-1">{{ c.nom }}</h5>
+              <div class="text-warning small mb-2">{{ c.specialite }}</div>
+              <p class="small text-muted mb-3">{{ c.biographie|slice(0,80) }}...</p>
 
-        <a class="btn btn-outline-light btn-sm"
-           href="{{ path('client_coach_show', {id: c.id}) }}">
-          Voir détail
-        </a>
-      </div>
+              <a class="btn hf-btn-outline btn-sm" href="{{ path('client_coach_show', {id: c.id}) }}">
+                Voir Profil <i class="fas fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-user-tie fa-3x text-muted mb-3"></i>
+          <h4 class="text-muted">Aucun coach disponible</h4>
+          <p class="text-muted">Revenez bientôt pour découvrir nos experts.</p>
+        </div>
+      {% endfor %}
     </div>
-  {% else %}
-    <p>Aucun coach.</p>
-  {% endfor %}
-</div>
+  </div>
+</section>
 {% endblock %}

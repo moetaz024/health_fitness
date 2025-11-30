@@ -1,42 +1,69 @@
 {% extends 'base_client.html.twig' %}
-{% block title %}Détail Service{% endblock %}
+{% block title %}{{ service.titre }} - Health Fitness{% endblock %}
 
 {% block body %}
-<div class="row g-4">
-  <div class="col-md-6">
-    {% if service.image %}
-      <img src="{{ asset('uploads/services/' ~ service.image) }}"
-           class="w-100 rounded hf-img" style="height:340px;" alt="service image">
-    {% endif %}
-  </div>
-
-  <div class="col-md-6">
-    <h1 class="mb-2">{{ service.titre }}</h1>
-    <p class="text-muted">{{ service.categorie }} • {{ service.duree }} min</p>
-
-    <p class="mb-3">{{ service.description }}</p>
-
-    <div class="card p-3 mb-3">
-      <div class="d-flex justify-content-between">
-        <div>Prix</div>
-        <div class="fw-bold fs-4">{{ service.prix }} DT</div>
+<section class="hf-section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-6">
+        {% if service.image %}
+          <div class="hf-card">
+            <img src="{{ asset('uploads/services/' ~ service.image) }}" class="w-100 rounded" style="height: 400px; object-fit: cover;" alt="{{ service.titre }}">
+          </div>
+        {% else %}
+          <div class="hf-card d-flex align-items-center justify-content-center bg-dark" style="height: 400px;">
+            <i class="fas fa-dumbbell fa-5x text-muted"></i>
+          </div>
+        {% endif %}
       </div>
-      <div class="d-flex justify-content-between mt-2">
-        <div>Coach</div>
-        <div class="fw-bold">{{ service.coach.nom }}</div>
+
+      <div class="col-lg-6">
+        <div class="d-flex align-items-center mb-3">
+          <span class="hf-badge me-3">{{ service.categorie }}</span>
+          <span class="text-muted"><i class="fas fa-clock me-1"></i> {{ service.duree }} min</span>
+        </div>
+        
+        <h1 class="mb-3">{{ service.titre }}</h1>
+        
+        <div class="hf-card p-4 mb-4">
+          <div class="row text-center">
+            <div class="col-4 border-end">
+              <div class="text-warning h4 mb-1">{{ service.prix }} DT</div>
+              <small class="text-muted">Prix</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="text-warning h4 mb-1">{{ service.duree }}</div>
+              <small class="text-muted">Minutes</small>
+            </div>
+            <div class="col-4">
+              <div class="text-warning h4 mb-1">5.0</div>
+              <small class="text-muted">Évaluation</small>
+            </div>
+          </div>
+        </div>
+
+        <p class="mb-4">{{ service.description }}</p>
+
+        <div class="d-flex align-items-center mb-4 p-3 hf-card">
+          <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+            <i class="fas fa-user text-warning"></i>
+          </div>
+          <div>
+            <h6 class="mb-0">Coach: {{ service.coach.nom }}</h6>
+            <small class="text-muted">{{ service.coach.specialite }}</small>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="{{ path('client_service_reserve', {id: service.id}) }}" class="btn hf-btn-primary btn-lg">
+            <i class="fas fa-calendar-check me-2"></i> Réserver Maintenant
+          </a>
+          <a href="{{ path('client_services') }}" class="btn hf-btn-outline btn-lg">
+            <i class="fas fa-arrow-left me-2"></i> Retour aux Services
+          </a>
+        </div>
       </div>
     </div>
-
-    <div class="d-flex gap-2">
-      <a class="btn btn-success"
-         href="{{ path('client_service_reserve', {id: service.id}) }}">
-         Réserver
-      </a>
-      <a class="btn btn-outline-light"
-         href="{{ path('client_services') }}">
-         Retour
-      </a>
-    </div>
   </div>
-</div>
+</section>
 {% endblock %}

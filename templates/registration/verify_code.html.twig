@@ -2,38 +2,45 @@
 {% block title %}Vérification Gmail{% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-  <div class="col-md-6 col-lg-5">
-    <div class="card p-4 shadow-sm border-0">
-      <h2 class="text-center mb-2">Vérification Gmail</h2>
-      <p class="text-muted text-center mb-4">
-        Code envoyé à <b>{{ email }}</b>
+<div class="hf-auth-wrapper">
+  <div class="hf-auth-card">
+
+    <div class="hf-auth-header text-center mb-3">
+      <div class="hf-auth-kicker">VÉRIFICATION</div>
+      <h2 class="hf-auth-title">📧 VÉRIFICATION GMAIL</h2>
+      <p class="hf-auth-subtitle">
+        Un code a été envoyé à <b>{{ email }}</b>. Entre-le pour valider ton compte.
       </p>
-
-      <form method="post">
-        <div class="mb-3">
-          <label class="form-label">Code de vérification</label>
-          <input type="text"
-                 name="code"
-                 maxlength="6"
-                 class="form-control form-control-lg text-center"
-                 placeholder="123456"
-                 required>
-        </div>
-
-        <button class="btn btn-success btn-lg w-100">
-          Vérifier
-        </button>
-      </form>
-
-      <div class="text-center mt-3">
-        <a href="{{ path('app_verify_code_resend') }}">Renvoyer un code</a>
-      </div>
-
-      <div class="text-center mt-2">
-        <a href="{{ path('app_register') }}">Changer d'email</a>
-      </div>
     </div>
+
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">📨 Code de vérification</label>
+        <input type="text"
+               name="code"
+               maxlength="6"
+               class="form-control form-control-lg text-center"
+               placeholder="123456"
+               required>
+      </div>
+
+      <button class="btn hf-auth-btn-primary btn-lg w-100">
+        ✅ VÉRIFIER
+      </button>
+    </form>
+
+    <div class="text-center mt-3">
+      <a href="{{ path('app_verify_code_resend') }}" class="hf-auth-link">
+        🔁 Renvoyer un code
+      </a>
+    </div>
+
+    <div class="text-center mt-2">
+      <a href="{{ path('app_register') }}" class="hf-auth-link">
+        ✏️ Changer d'email
+      </a>
+    </div>
+
   </div>
 </div>
 {% endblock %}

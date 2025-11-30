@@ -1,31 +1,68 @@
 {% extends 'base_client.html.twig' %}
-{% block title %}Coach{% endblock %}
+{% block title %}Coach {{ coach.nom }} - Health Fitness{% endblock %}
 
 {% block body %}
-<div class="row g-4 align-items-start">
-  <div class="col-md-4">
-    {% if coach.photo %}
-      <img src="{{ asset('uploads/coachs/' ~ coach.photo) }}"
-           class="w-100 rounded" style="height:300px; object-fit:cover;" alt="coach photo">
-    {% endif %}
-  </div>
+<section class="hf-section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-4">
+        {% if coach.photo %}
+          <div class="hf-card">
+            <img src="{{ asset('uploads/coachs/' ~ coach.photo) }}" class="w-100 rounded" style="height: 400px; object-fit: cover;" alt="{{ coach.nom }}">
+          </div>
+        {% else %}
+          <div class="hf-card d-flex align-items-center justify-content-center bg-dark" style="height: 400px;">
+            <i class="fas fa-user-tie fa-5x text-muted"></i>
+          </div>
+        {% endif %}
+        
+        <div class="hf-card p-4 mt-4 text-center">
+          <h5 class="mb-3">Informations</h5>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Spécialité:</span>
+            <span class="fw-bold">{{ coach.specialite }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Expérience:</span>
+            <span class="fw-bold">{{ coach.experience }}</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">Disponibilité:</span>
+            <span class="fw-bold text-success">Disponible</span>
+          </div>
+        </div>
+      </div>
 
-  <div class="col-md-8">
-    <h1 class="mb-1">{{ coach.nom }}</h1>
-    <p class="text-muted">{{ coach.specialite }}</p>
+      <div class="col-lg-8">
+        <h1 class="mb-2">{{ coach.nom }}</h1>
+        <p class="text-warning mb-4">{{ coach.specialite }}</p>
 
-    <div class="card p-3 mb-3">
-      <div><b>Expérience:</b> {{ coach.experience }}</div>
+        <div class="hf-card p-4 mb-4">
+          <h5 class="mb-3">À propos</h5>
+          <p class="mb-0">{{ coach.biographie }}</p>
+        </div>
+
+        <div class="hf-card p-4 mb-4">
+          <h5 class="mb-3">Spécialisations</h5>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="hf-badge">Musculation</span>
+            <span class="hf-badge">Cardio</span>
+            <span class="hf-badge">Perte de poids</span>
+            <span class="hf-badge">Récupération</span>
+            <span class="hf-badge">Nutrition</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap">
+          <a class="btn hf-btn-primary" href="{{ path('client_services', {coach: coach.id}) }}">
+            <i class="fas fa-dumbbell me-2"></i> Voir ses services
+          </a>
+          <a class="btn hf-btn-outline" href="{{ path('client_coachs') }}">
+            <i class="fas fa-arrow-left me-2"></i> Retour aux coachs
+          </a>
+        </div>
+      </div>
     </div>
-
-    <p>{{ coach.biographie }}</p>
-
-    <div class="d-flex gap-2">
-      <a class="btn btn-outline-light" href="{{ path('client_coachs') }}">Retour</a>
-      <a class="btn btn-primary" href="{{ path('client_services', {coach: coach.id}) }}">
-        Voir ses services
-      </a>
-    </div>
   </div>
-</div>
+</section>
 {% endblock %}

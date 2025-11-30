@@ -1,45 +1,80 @@
+{# templates/service/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Service index{% endblock %}
+{% block title %}Services{% endblock %}
 
 {% block body %}
-    <h1>Service index</h1>
+<div class="container my-4">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Duree</th>
-                <th>Categorie</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for service in services %}
-            <tr>
-                <td>{{ service.id }}</td>
-                <td>{{ service.titre }}</td>
-                <td>{{ service.description }}</td>
-                <td>{{ service.prix }}</td>
-                <td>{{ service.duree }}</td>
-                <td>{{ service.categorie }}</td>
-                <td>{{ service.image }}</td>
-                <td>
-                    <a href="{{ path('app_service_show', {'id': service.id}) }}">show</a>
-                    <a href="{{ path('app_service_edit', {'id': service.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-1">Services</h1>
+            <p class="text-muted mb-0">Gère tous les services proposés dans Health Fitness.</p>
+        </div>
+        <a href="{{ path('app_service_new') }}" class="btn btn-success rounded-pill px-4">
+            ➕ Nouveau service
+        </a>
+    </div>
 
-    <a href="{{ path('app_service_new') }}">Create new</a>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>Durée</th>
+                            <th>Catégorie</th>
+                            <th>Image</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for service in services %}
+                        <tr>
+                            <td>{{ service.id }}</td>
+                            <td class="fw-semibold">{{ service.titre }}</td>
+                            <td class="text-muted" style="max-width: 260px;">
+                                {{ service.description|u.truncate(80, '…') }}
+                            </td>
+                            <td>{{ service.prix }}</td>
+                            <td>{{ service.duree }}</td>
+                            <td><span class="badge bg-secondary">{{ service.categorie }}</span></td>
+                            <td>
+                                {% if service.image %}
+                                    <span class="text-muted small">{{ service.image }}</span>
+                                {% else %}
+                                    <span class="text-muted small">—</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{{ path('app_service_show', {'id': service.id}) }}"
+                                       class="btn btn-outline-primary rounded-pill px-3">
+                                        👁 Voir
+                                    </a>
+                                    <a href="{{ path('app_service_edit', {'id': service.id}) }}"
+                                       class="btn btn-outline-warning rounded-pill px-3">
+                                        ✏️ Editer
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">
+                                Aucun service trouvé.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

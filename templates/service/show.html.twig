@@ -1,46 +1,67 @@
+{# templates/service/show.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Service{% endblock %}
+{% block title %}Service #{{ service.id }}{% endblock %}
 
 {% block body %}
-    <h1>Service</h1>
+<div class="container my-4">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ service.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ service.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ service.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ service.prix }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ service.duree }}</td>
-            </tr>
-            <tr>
-                <th>Categorie</th>
-                <td>{{ service.categorie }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ service.image }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-1">Détail du service</h1>
+            <p class="text-muted mb-0">Informations complètes sur ce service.</p>
+        </div>
 
-    <a href="{{ path('app_service_index') }}">back to list</a>
+        <div class="d-flex gap-2">
+            <a href="{{ path('app_service_index') }}"
+               class="btn btn-outline-secondary rounded-pill px-4">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_service_edit', {'id': service.id}) }}"
+               class="btn btn-warning rounded-pill px-4">
+                ✏️ Modifier
+            </a>
+        </div>
+    </div>
 
-    <a href="{{ path('app_service_edit', {'id': service.id}) }}">edit</a>
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">{{ service.id }}</dd>
 
-    {{ include('service/_delete_form.html.twig') }}
+                <dt class="col-sm-3">Titre</dt>
+                <dd class="col-sm-9 fw-semibold">{{ service.titre }}</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">{{ service.description }}</dd>
+
+                <dt class="col-sm-3">Prix</dt>
+                <dd class="col-sm-9">{{ service.prix }}</dd>
+
+                <dt class="col-sm-3">Durée</dt>
+                <dd class="col-sm-9">{{ service.duree }}</dd>
+
+                <dt class="col-sm-3">Catégorie</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-secondary">{{ service.categorie }}</span>
+                </dd>
+
+                <dt class="col-sm-3">Image</dt>
+                <dd class="col-sm-9">
+                    {% if service.image %}
+                        <span class="text-muted">{{ service.image }}</span>
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        {{ include('service/_delete_form.html.twig') }}
+    </div>
+
+</div>
 {% endblock %}

@@ -1,25 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Health & Fitness - Votre Centre de Bien-être{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+    {{ encore_entry_link_tags('app') }}
+</head>
 <body>
+    <!-- ===== HEADER ===== -->
+    <header class="hf-header">
+        <div class="hf-header-top">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="hf-logo">
+                            <a href="{{ path('client_home') }}" class="hf-logo-link">
+                                <span class="hf-logo-text">HEALTH<span class="hf-accent">FIT</span></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="hf-header-actions">
+                            <div class="hf-search">
+                                <input type="text" placeholder="Rechercher un service, un coach..." class="hf-search-input">
+                                <button class="hf-search-btn">🔍</button>
+                            </div>
+                            <div class="hf-user-menu">
+                                {% if app.user %}
+                                    <div class="hf-user-info">
+                                        <span class="hf-user-name">{{ app.user.email }}</span>
+                                        <a href="{{ path('app_logout') }}" class="hf-btn hf-btn-sm hf-btn-outline">Déconnexion</a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="hf-btn hf-btn-sm hf-btn-outline">Connexion</a>
+                                    <a href="{{ path('app_register') }}" class="hf-btn hf-btn-sm hf-btn-primary">Inscription</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<nav>
-  <a href="{{ path('client_services') }}">Services</a> |
-  <a href="{{ path('client_coachs') }}">Coachs</a> |
-  <a href="{{ path('client_products') }}">Produits</a>
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="hf-navbar">
+            <div class="container-fluid">
+                <ul class="hf-nav-menu">
+                    <li class="hf-nav-item">
+                        <a href="{{ path('client_home') }}" class="hf-nav-link">ACCUEIL</a>
+                    </li>
+                    <li class="hf-nav-item">
+                        <a href="{{ path('client_services') }}" class="hf-nav-link">SERVICES</a>
+                    </li>
+                    <li class="hf-nav-item">
+                        <a href="{{ path('client_coachs') }}" class="hf-nav-link">COACHS</a>
+                    </li>
+                    <li class="hf-nav-item">
+                        <a href="{{ path('client_products') }}" class="hf-nav-link">PRODUITS</a>
+                    </li>
+                    {% if app.user %}
+                        <li class="hf-nav-item">
+                            <a href="{{ path('client_reservations') }}" class="hf-nav-link">MES RÉSERVATIONS</a>
+                        </li>
+                        <li class="hf-nav-item">
+                            <a href="{{ path('client_orders') }}" class="hf-nav-link">MES COMMANDES</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="hf-nav-item">
+                            <a href="{{ path('admin_dashboard') }}" class="hf-nav-link hf-admin-link">ADMIN</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-  {% if app.user %}
-    | <a href="{{ path('client_reservations') }}">Mes réservations</a>
-    | <a href="{{ path('client_orders') }}">Mes commandes</a>
-  {% else %}
-    | <a href="{{ path('app_login') }}">Login</a>
-    | <a href="{{ path('app_register') }}">Register</a>
-  {% endif %}
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="hf-main">
+        {% block body %}{% endblock %}
+    </main>
 
-  {% if is_granted('ROLE_ADMIN') %}
-    | <a href="{{ path('admin_dashboard') }}">Admin</a>
-  {% endif %}
-</nav>
+    <!-- ===== FOOTER ===== -->
+    <footer class="hf-footer">
+        <div class="hf-footer-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Footer Column 1: About -->
+                    <div class="col-md-3">
+                        <div class="hf-footer-section">
+                            <h4 class="hf-footer-title">À PROPOS</h4>
+                            <p class="hf-footer-text">
+                                Bienvenue dans votre centre de fitness et bien-être. Nous vous proposons des services de qualité supérieure pour transformer votre corps et votre esprit.
+                            </p>
+                            <div class="hf-social-links">
+                                <a href="#" class="hf-social-link">Facebook</a>
+                                <a href="#" class="hf-social-link">Instagram</a>
+                                <a href="#" class="hf-social-link">Twitter</a>
+                            </div>
+                        </div>
+                    </div>
 
-<hr>
+                    <!-- Footer Column 2: Quick Links -->
+                    <div class="col-md-3">
+                        <div class="hf-footer-section">
+                            <h4 class="hf-footer-title">LIENS RAPIDES</h4>
+                            <ul class="hf-footer-links">
+                                <li><a href="{{ path('client_services') }}">Services</a></li>
+                                <li><a href="{{ path('client_coachs') }}">Coachs</a></li>
+                                <li><a href="{{ path('client_products') }}">Produits</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-{% block body %}{% endblock %}
+                    <!-- Footer Column 3: Services -->
+                    <div class="col-md-3">
+                        <div class="hf-footer-section">
+                            <h4 class="hf-footer-title">SERVICES</h4>
+                            <ul class="hf-footer-links">
+                                <li><a href="#">Entraînement Personnel</a></li>
+                                <li><a href="#">Coaching Fitness</a></li>
+                                <li><a href="#">Nutrition</a></li>
+                                <li><a href="#">Yoga & Pilates</a></li>
+                                <li><a href="#">Musculation</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
+                    <!-- Footer Column 4: Contact -->
+                    <div class="col-md-3">
+                        <div class="hf-footer-section">
+                            <h4 class="hf-footer-title">CONTACT</h4>
+                            <div class="hf-contact-info">
+                                <p><strong>Adresse :</strong><br>123 Rue du Fitness, 75000 Paris</p>
+                                <p><strong>Téléphone :</strong><br>+33 (0)1 23 45 67 89</p>
+                                <p><strong>Email :</strong><br>contact@healthfit.fr</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="hf-footer-bottom">
+                    <p>&copy; 2025 Health & Fitness. Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {{ encore_entry_script_tags('app') }}
 </body>
+</html>

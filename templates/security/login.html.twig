@@ -2,77 +2,77 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-  <div class="col-md-6 col-lg-5">
+<div class="hf-auth-wrapper">
+  <div class="hf-auth-card">
 
-    <div class="card p-4">
-      <h2 class="mb-1 text-center">Se connecter</h2>
-      <p class="text-muted text-center mb-4">
-        Entre ton Gmail et mot de passe.
+    <div class="hf-auth-header text-center mb-3">
+      <div class="hf-auth-kicker">RETOUR</div>
+      <h2 class="hf-auth-title">🔐 SE CONNECTER</h2>
+      <p class="hf-auth-subtitle">
+        Entre ton Gmail et ton mot de passe pour accéder à Health Fitness.
       </p>
-
-      {% if error %}
-        <div class="alert alert-danger border-0 shadow-sm">
-          {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-      {% endif %}
-
-      <form method="post" novalidate>
-
-        <div class="mb-3">
-          <label for="inputEmail" class="form-label">Gmail</label>
-          <input type="email"
-                 value="{{ last_username }}"
-                 name="email"
-                 id="inputEmail"
-                 class="form-control form-control-lg"
-                 autocomplete="email"
-                 required
-                 autofocus
-                 placeholder="ex: name@gmail.com">
-        </div>
-
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Mot de passe</label>
-          <div class="input-group">
-            <input type="password"
-                   name="password"
-                   id="inputPassword"
-                   class="form-control form-control-lg"
-                   autocomplete="current-password"
-                   required>
-            <button class="btn btn-outline-secondary toggle-password"
-                    type="button" data-target="inputPassword">👁</button>
-          </div>
-        </div>
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="_remember_me" id="remember_me">
-            <label class="form-check-label" for="remember_me">
-              Se souvenir de moi
-            </label>
-          </div>
-
-          <a class="small text-muted" href="{{ path('app_forgot_password') }}">
-            Mot de passe oublié ?
-          </a>
-        </div>
-
-        <button class="btn btn-success btn-lg w-100" type="submit">
-          Login
-        </button>
-
-        <div class="text-center mt-3">
-          <span class="text-muted">Pas encore de compte ?</span>
-          <a href="{{ path('app_register') }}" class="fw-semibold">Créer un compte</a>
-        </div>
-
-      </form>
     </div>
 
+    {% if error %}
+      <div class="alert alert-danger border-0 shadow-sm mb-3">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">📧 Gmail</label>
+        <input type="email"
+               value="{{ last_username }}"
+               name="email"
+               id="inputEmail"
+               class="form-control form-control-lg"
+               autocomplete="email"
+               required
+               autofocus
+               placeholder="📧 ex: name@gmail.com">
+      </div>
+
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">🔒 Mot de passe</label>
+        <div class="input-group">
+          <input type="password"
+                 name="password"
+                 id="inputPassword"
+                 class="form-control form-control-lg"
+                 autocomplete="current-password"
+                 required>
+          <button class="btn btn-outline-secondary toggle-password"
+                  type="button" data-target="inputPassword">👁</button>
+        </div>
+      </div>
+
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="_remember_me" id="remember_me">
+          <label class="form-check-label" for="remember_me">
+            🔁 Se souvenir de moi
+          </label>
+        </div>
+
+        <a class="small text-muted" href="{{ path('app_forgot_password') }}">
+          ❓ Mot de passe oublié ?
+        </a>
+      </div>
+
+      <button class="btn hf-auth-btn-primary btn-lg w-100" type="submit">
+        🚀 LOGIN
+      </button>
+
+      <div class="text-center mt-3">
+        <span class="text-muted">Pas encore de compte ?</span>
+        <a href="{{ path('app_register') }}" class="fw-semibold hf-auth-link"> Créer un compte</a>
+      </div>
+
+    </form>
   </div>
 </div>
 

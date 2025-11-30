@@ -1,0 +1,50 @@
+{# templates/profile/edit.html.twig #}
+{% extends 'base_client.html.twig' %}
+{% block title %}Modifier Profil{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8 col-lg-6">
+
+    <div class="hf-card p-4">
+      <h2 class="mb-3">Modifier mon profil</h2>
+
+      {{ form_start(form) }}
+
+        <div class="mb-3">
+          {{ form_label(form.nom, '👤 Nom') }}
+          {{ form_widget(form.nom) }}
+          {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="mb-3">
+          {{ form_label(form.prenom, '✨ Prénom') }}
+          {{ form_widget(form.prenom) }}
+          {{ form_errors(form.prenom) }}
+        </div>
+
+        <div class="mb-3">
+          {{ form_label(form.dateNaissance, '🎂 Date de naissance') }}
+          {{ form_widget(form.dateNaissance) }}
+          {{ form_errors(form.dateNaissance) }}
+        </div>
+
+        <div class="mb-3">
+          {{ form_label(form.email, '📧 Gmail') }}
+          {{ form_widget(form.email) }}
+        </div>
+
+        <button class="btn hf-btn-primary btn-lg w-100">
+          💾 Enregistrer
+        </button>
+
+      {{ form_end(form) }}
+
+      <div class="text-center mt-3">
+        <a href="{{ path('client_profile') }}" class="hf-auth-link">↩ Retour profil</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

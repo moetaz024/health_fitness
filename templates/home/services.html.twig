@@ -1,62 +1,92 @@
 {% extends 'base_client.html.twig' %}
-{% block title %}Services{% endblock %}
+{% block title %}Services Premium - Health Fitness{% endblock %}
 
 {% block body %}
+<section class="hf-section" style="background: rgba(10, 10, 10, 0.95);">
+  <div class="container">
+    <h2 class="hf-section-title">NOS SERVICES <span class="hf-hero-highlight">PREMIUM</span></h2>
+    <p class="text-center text-muted mb-5 fs-5">Découvrez notre gamme complète de services conçus pour vous aider à atteindre vos objectifs fitness.</p>
 
-<div class="hf-hero mb-4">
-  <h1 class="mb-1">Nos Services</h1>
-  <p class="text-muted mb-0">Choisis ton programme et réserve en 1 clic.</p>
-</div>
+    <div class="d-flex flex-wrap gap-3 mb-5 justify-content-center">
+      <a class="btn hf-btn-outline btn-lg" href="{{ path('client_services') }}">
+        <i class="fas fa-star me-2"></i>Tous les Services
+      </a>
+      <a class="btn hf-btn-outline btn-lg" href="{{ path('client_services', {cat:'yoga'}) }}">
+        <i class="fas fa-spa me-2"></i>Yoga
+      </a>
+      <a class="btn hf-btn-outline btn-lg" href="{{ path('client_services', {cat:'cardio'}) }}">
+        <i class="fas fa-heartbeat me-2"></i>Cardio
+      </a>
+      <a class="btn hf-btn-outline btn-lg" href="{{ path('client_services', {cat:'boxe'}) }}">
+        <i class="fas fa-fist-raised me-2"></i>Boxe
+      </a>
+      <a class="btn hf-btn-outline btn-lg" href="{{ path('client_services', {cat:'musculation'}) }}">
+        <i class="fas fa-dumbbell me-2"></i>Musculation
+      </a>
+    </div>
 
-<div class="d-flex flex-wrap gap-2 mb-3">
-  <a class="btn btn-outline-light btn-sm" href="{{ path('client_services') }}">Tous</a>
-  <a class="btn btn-outline-light btn-sm" href="{{ path('client_services', {cat:'yoga'}) }}">Yoga</a>
-  <a class="btn btn-outline-light btn-sm" href="{{ path('client_services', {cat:'cardio'}) }}">Cardio</a>
-  <a class="btn btn-outline-light btn-sm" href="{{ path('client_services', {cat:'boxe'}) }}">Boxe</a>
-</div>
+    <div class="mb-5 text-center">
+      <select class="form-select w-auto mx-auto d-inline-block" onchange="location = this.value;" style="max-width: 300px;">
+        <option value="{{ path('client_services') }}">-- Filtrer par coach --</option>
+        {% for c in coachs %}
+          <option value="{{ path('client_services', {coach: c.id}) }}"
+            {{ selectedCoach == c.id ? 'selected' : '' }}>
+            👤 {{ c.nom }} - {{ c.specialite }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
 
-<div class="mb-4">
-  <select class="form-select w-auto" onchange="location = this.value;">
-    <option value="{{ path('client_services') }}">-- Filtrer par coach --</option>
-    {% for c in coachs %}
-      <option value="{{ path('client_services', {coach: c.id}) }}"
-        {{ selectedCoach == c.id ? 'selected' : '' }}>
-        {{ c.nom }}
-      </option>
-    {% endfor %}
-  </select>
-</div>
+    <div class="row g-4">
+      {% for s in services %}
+        <div class="col-lg-4 col-md-6">
+          <div class="hf-card h-100">
+            {% if s.image %}
+              <img src="{{ asset('uploads/services/' ~ s.image) }}" class="hf-img" alt="{{ s.titre }}" style="height: 250px;">
+            {% else %}
+              <div class="hf-img bg-dark d-flex align-items-center justify-content-center" style="height: 250px;">
+                <i class="fas fa-dumbbell fa-4x text-muted"></i>
+              </div>
+            {% endif %}
 
-<div class="row g-3">
-  {% for s in services %}
-    <div class="col-md-4">
-      <div class="card p-2 h-100">
-        {% if s.image %}
-          <img src="{{ asset('uploads/services/' ~ s.image) }}" class="hf-img mb-2" alt="service image">
-        {% endif %}
+            <div class="p-4">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <h5 class="mb-0">{{ s.titre }}</h5>
+                <span class="hf-badge">{{ s.prix }} DT</span>
+              </div>
+              
+              <div class="d-flex justify-content-between text-muted mb-3">
+                <span><i class="fas fa-tag me-1"></i> {{ s.categorie }}</span>
+                <span><i class="fas fa-clock me-1"></i> {{ s.duree }} min</span>
+              </div>
+              
+              <p class="mb-4">{{ s.description|slice(0,120) }}...</p>
 
-        <div class="p-2">
-          <h5 class="mb-1">{{ s.titre }}</h5>
-          <div class="small text-muted mb-2">{{ s.categorie }} • {{ s.duree }} min</div>
-          <p class="mb-2">{{ s.description|slice(0,120) }}...</p>
-
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="fw-bold">{{ s.prix }} DT</div>
-            <a class="btn btn-primary btn-sm"
-               href="{{ path('client_service_show', {id: s.id}) }}">
-              Voir détail
-            </a>
-          </div>
-
-          <div class="small text-muted mt-2">
-            Coach: <b>{{ s.coach.nom }}</b>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
+                    <i class="fas fa-user text-warning"></i>
+                  </div>
+                  <small class="text-muted">{{ s.coach.nom }}</small>
+                </div>
+                <a class="btn hf-btn-primary btn-sm" href="{{ path('client_service_show', {id: s.id}) }}">
+                  Détails <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      {% else %}
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-dumbbell fa-4x text-muted mb-4"></i>
+          <h4 class="text-muted mb-3">Aucun service trouvé</h4>
+          <p class="text-muted">Aucun service ne correspond à vos critères de recherche.</p>
+          <a href="{{ path('client_services') }}" class="btn hf-btn-primary mt-3">
+            <i class="fas fa-redo me-2"></i>Voir tous les services
+          </a>
+        </div>
+      {% endfor %}
     </div>
-  {% else %}
-    <p>Aucun service trouvé.</p>
-  {% endfor %}
-</div>
-
+  </div>
+</section>
 {% endblock %}

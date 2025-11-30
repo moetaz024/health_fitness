@@ -1,74 +1,435 @@
+{# templates/base_client.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Health Fitness{% endblock %}</title>
-
+  <title>{% block title %}Health Fitness - Premium Gym & Fitness Club{% endblock %}</title>
+  
   {{ encore_entry_link_tags('app') }}
-  {{ encore_entry_script_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/gymlife.css') }}">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="hf-body">
+{% set currentRoute = app.request.attributes.get('_route') %}
 
-<nav class="navbar navbar-expand-lg navbar-dark mb-4">
-  <div class="container">
-    <a class="navbar-brand" href="{{ path('client_services') }}">
-      Health<span style="color:#22c55e;">Fitness</span>
-    </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navClient">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navClient">
-      <ul class="navbar-nav me-auto gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="{{ path('client_services') }}">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('client_coachs') }}">Coachs</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('client_products') }}">Produits</a></li>
-
-        {% if app.user %}
-          <li class="nav-item"><a class="nav-link" href="{{ path('client_reservations') }}">Mes réservations</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ path('client_orders') }}">Mes commandes</a></li>
-        {% endif %}
-      </ul>
-
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
-        {% if app.user %}
-          <li class="nav-item">
-            <span class="badge-soft">{{ app.user.email }}</span>
-          </li>
-          {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-              <a class="btn btn-sm btn-outline-light" href="{{ path('admin_dashboard') }}">Admin</a>
-            </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="btn btn-sm btn-outline-light" href="{{ path('app_logout') }}">Logout</a>
-          </li>
-        {% else %}
-          <li class="nav-item"><a class="btn btn-sm btn-outline-light" href="{{ path('app_login') }}">Login</a></li>
-          <li class="nav-item"><a class="btn btn-sm btn-primary" href="{{ path('app_register') }}">Register</a></li>
-        {% endif %}
-      </ul>
-    </div>
+{# ========= Background Carousel ========= #}
+<div class="hf-bg-carousel">
+  <div class="hf-carousel-inner">
+    <div class="hf-carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="hf-carousel-item" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="hf-carousel-item" style="background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
   </div>
-</nav>
-
-<div class="container">
-
-  {% for label, messages in app.flashes %}
-    {% for message in messages %}
-      <div class="alert alert-{{ label }} shadow-sm border-0">{{ message }}</div>
-    {% endfor %}
-  {% endfor %}
-
-  {% block body %}{% endblock %}
+  <div class="hf-carousel-overlay"></div>
+  
+  <button class="hf-carousel-control hf-carousel-prev">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <button class="hf-carousel-control hf-carousel-next">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+  
+  <div class="hf-carousel-indicators">
+    <button class="hf-carousel-indicator active" data-slide="0"></button>
+    <button class="hf-carousel-indicator" data-slide="1"></button>
+    <button class="hf-carousel-indicator" data-slide="2"></button>
+  </div>
 </div>
 
-<footer class="mt-5">
-  Health Fitness © {{ "now"|date("Y") }} — All rights reserved.
+{# ========= Header & Navigation ========= #}
+<header class="hf-header">
+  <nav class="navbar navbar-expand-xl hf-navbar">
+    <div class="container">
+      <a class="navbar-brand hf-brand" href="#hero">
+        <span class="hf-brand-icon"><i class="fas fa-dumbbell"></i></span>
+        <span class="hf-brand-text">
+          <span class="hf-brand-white">HEALTH</span>
+          <span class="hf-brand-orange">FITNESS</span>
+        </span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navClient" aria-controls="navClient" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <i class="fas fa-bars"></i>
+        </span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navClient">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 hf-menu">
+          <li class="nav-item">
+            <a class="nav-link hf-scroll-to" href="#services">
+              <i class="fas fa-dumbbell me-2"></i>Services
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hf-scroll-to" href="#coachs">
+              <i class="fas fa-user-tie me-2"></i>Coachs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hf-scroll-to" href="#products">
+              <i class="fas fa-shopping-bag me-2"></i>Produits
+            </a>
+          </li>
+
+          {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link {{ currentRoute == 'client_reservations' ? 'active' : '' }}" href="{{ path('client_reservations') }}">
+                <i class="fas fa-calendar-check me-2"></i>Mes réservations
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ currentRoute == 'client_orders' ? 'active' : '' }}" href="{{ path('client_orders') }}">
+                <i class="fas fa-receipt me-2"></i>Mes commandes
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+        
+        <div class="hf-nav-buttons ms-3 d-flex align-items-center">
+          {% if app.user %}
+            {# ---- CHIP PROFIL + MENU ---- #}
+            <div class="dropdown hf-profile-chip me-2">
+              <button class="btn hf-btn-outline d-flex align-items-center hf-profile-toggle"
+                      type="button"
+                      id="profileDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                <span class="hf-profile-avatar">
+                  {% if app.user.prenom %}
+                    {{ app.user.prenom|first|upper }}
+                  {% else %}
+                    {{ app.user.email|first|upper }}
+                  {% endif %}
+                </span>
+                <span class="hf-profile-name d-none d-sm-inline ms-2">
+                  {{ app.user.prenom ?? app.user.email }}
+                </span>
+                <i class="fas fa-chevron-down ms-2 small d-none d-sm-inline"></i>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-end hf-profile-menu" aria-labelledby="profileDropdown">
+                <li>
+                  <h6 class="dropdown-header">
+                    <i class="fas fa-user-circle me-2"></i>
+                    {{ app.user.prenom ?? app.user.email }}
+                  </h6>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('client_profile') }}">
+                    <i class="fas fa-id-badge me-2"></i>Mon profil
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('client_reservations') }}">
+                    <i class="fas fa-calendar-check me-2"></i>Mes réservations
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('client_orders') }}">
+                    <i class="fas fa-receipt me-2"></i>Mes commandes
+                  </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" href="{{ path('admin_dashboard') }}">
+                      <i class="fas fa-cog me-2"></i>Admin
+                    </a>
+                  </li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                    <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                  </a>
+                </li>
+              </ul>
+            </div>
+          {% else %}
+            <a class="btn hf-btn-outline me-2" href="{{ path('app_login') }}">
+              <i class="fas fa-sign-in-alt me-2"></i>Connexion
+            </a>
+            <a class="btn hf-btn-primary" href="{{ path('app_register') }}">
+              <i class="fas fa-user-plus me-2"></i>Inscription
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+{# ========= Hero Section ========= #}
+<section class="hf-hero-section" id="hero">
+  <div class="container">
+    <div class="hf-hero-content">
+      <h1 class="hf-hero-title">
+        TRANSFORMEZ VOTRE CORPS.<br>
+        <span class="hf-hero-highlight">TRANSFORMEZ VOTRE VIE.</span>
+      </h1>
+      <p class="hf-hero-subtitle">
+        Rejoignez Health Fitness aujourd'hui et découvrez la meilleure version de vous-même avec nos programmes d'entraînement personnalisés et nos coachs experts.
+      </p>
+      <div class="hf-hero-buttons">
+        <a href="{{ path('app_register') }}" class="btn hf-btn-hero-primary hf-scroll-trigger" data-target="auth-section">
+          Commencer Maintenant
+        </a>
+        <a href="#services" class="btn hf-btn-hero-secondary hf-scroll-to">
+          Découvrir Nos Services
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ========= Main Content ========= #}
+<main class="hf-main">
+  <div class="container">
+    {% if app.flashes is not empty %}
+      <div class="hf-flash-wrapper">
+        {% for label, messages in app.flashes %}
+          {% for message in messages %}
+            <div class="alert alert-{{ label }} shadow-sm border-0">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block body %}{% endblock %}
+  </div>
+</main>
+
+{# ========= Preview Sections (services / coachs / produits) ========= #}
+<section class="hf-section-preview" id="services" style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+  <div class="hf-section-overlay"></div>
+  <div class="container">
+    <div class="hf-preview-content">
+      <h2 class="hf-section-title">NOS SERVICES <span class="hf-hero-highlight">PREMIUM</span></h2>
+      <p class="text-center text-muted mb-5">Découvrez notre gamme complète de services conçus pour vous aider à atteindre vos objectifs fitness.</p>
+      <div class="text-center">
+        <a href="{{ path('client_services') }}" class="btn hf-btn-hero-primary btn-lg">
+          Voir Tous les Services <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hf-section-preview" id="coachs" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+  <div class="hf-section-overlay"></div>
+  <div class="container">
+    <div class="hf-preview-content">
+      <h2 class="hf-section-title">NOS <span class="hf-hero-highlight">COACHS EXPERTS</span></h2>
+      <p class="text-center text-muted mb-5">Rencontrez notre équipe de coachs certifiés, dédiés à votre réussite sportive.</p>
+      <div class="text-center">
+        <a href="{{ path('client_coachs') }}" class="btn hf-btn-hero-primary btn-lg">
+          Découvrir Nos Coachs <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hf-section-preview" id="products" style="background-image: url('https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+  <div class="hf-section-overlay"></div>
+  <div class="container">
+    <div class="hf-preview-content">
+      <h2 class="hf-section-title">NOS <span class="hf-hero-highlight">PRODUITS</span></h2>
+      <p class="text-center text-muted mb-5">Découvrez notre sélection de produits fitness et nutrition pour optimiser vos performances.</p>
+      <div class="text-center">
+        <a href="{{ path('client_products') }}" class="btn hf-btn-hero-primary btn-lg">
+          Voir Nos Produits <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ========= Auth Section (si pas connecté) ========= #}
+{% if not app.user %}
+<section class="hf-auth-section" id="auth-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="hf-card p-5 text-center">
+          <h2 class="mb-4">Prêt à commencer votre transformation ?</h2>
+          <p class="text-muted mb-4">Rejoignez notre communauté fitness et accédez à tous nos services premium.</p>
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{{ path('app_register') }}" class="btn hf-btn-primary btn-lg">
+              <i class="fas fa-user-plus me-2"></i>Créer un compte
+            </a>
+            <a href="{{ path('app_login') }}" class="btn hf-btn-outline btn-lg">
+              <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ========= Footer ========= #}
+<footer class="hf-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="hf-footer-brand">
+          <span class="hf-brand-icon"><i class="fas fa-dumbbell"></i></span>
+          <span class="hf-footer-brand-text">HEALTH<span>FITNESS</span></span>
+        </div>
+        <p class="hf-footer-desc">Votre destination premium pour la remise en forme et le bien-être. Des programmes personnalisés, des équipements de pointe et des coachs experts pour vous accompagner dans votre transformation.</p>
+        <div class="hf-social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+        <h5 class="hf-footer-title">Liens Rapides</h5>
+        <ul class="hf-footer-links">
+          <li><a href="#services" class="hf-scroll-to">Services</a></li>
+          <li><a href="#coachs" class="hf-scroll-to">Coachs</a></li>
+          <li><a href="#products" class="hf-scroll-to">Produits</a></li>
+          <li><a href="#hero" class="hf-scroll-to">Accueil</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+        <h5 class="hf-footer-title">Services</h5>
+        <ul class="hf-footer-links">
+          <li><a href="{{ path('client_services', {cat:'musculation'}) }}">Musculation</a></li>
+          <li><a href="{{ path('client_services', {cat:'yoga'}) }}">Yoga & Pilates</a></li>
+          <li><a href="{{ path('client_services', {cat:'cardio'}) }}">Cardio Training</a></li>
+          <li><a href="{{ path('client_services', {cat:'boxe'}) }}">Boxe & MMA</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <h5 class="hf-footer-title">Contact</h5>
+        <div class="hf-contact-info">
+          <p><i class="fas fa-map-marker-alt me-2"></i> 123 Avenue du Fitness, 75000 Paris</p>
+          <p><i class="fas fa-phone me-2"></i> +33 1 23 45 67 89</p>
+          <p><i class="fas fa-envelope me-2"></i> contact@healthfitness.com</p>
+          <p><i class="fas fa-clock me-2"></i> Lun - Ven: 6h-22h, Sam-Dim: 8h-20h</p>
+        </div>
+      </div>
+    </div>
+    <div class="hf-footer-bottom">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; {{ "now"|date("Y") }} Health Fitness. Tous droits réservés.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="hf-footer-bottom-links">
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Conditions d'utilisation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
+
+{{ encore_entry_script_tags('app') }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const carouselItems = document.querySelectorAll('.hf-carousel-item');
+  const indicators = document.querySelectorAll('.hf-carousel-indicator');
+  const prevBtn = document.querySelector('.hf-carousel-prev');
+  const nextBtn = document.querySelector('.hf-carousel-next');
+  let currentItem = 0;
+  let carouselInterval;
+  
+  function showSlide(index) {
+    carouselItems.forEach(item => item.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    currentItem = index;
+    carouselItems[currentItem].classList.add('active');
+    indicators[currentItem].classList.add('active');
+  }
+  
+  function nextSlide() {
+    const nextIndex = (currentItem + 1) % carouselItems.length;
+    showSlide(nextIndex);
+  }
+  
+  function prevSlide() {
+    const prevIndex = (currentItem - 1 + carouselItems.length) % carouselItems.length;
+    showSlide(prevIndex);
+  }
+  
+  function startCarousel() {
+    carouselInterval = setInterval(nextSlide, 5000);
+  }
+  
+  function resetCarousel() {
+    clearInterval(carouselInterval);
+    startCarousel();
+  }
+  
+  nextBtn.addEventListener('click', function() {
+    nextSlide();
+    resetCarousel();
+  });
+  
+  prevBtn.addEventListener('click', function() {
+    prevSlide();
+    resetCarousel();
+  });
+  
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', function() {
+      showSlide(index);
+      resetCarousel();
+    });
+  });
+  
+  startCarousel();
+  
+  const navbar = document.querySelector('.hf-navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+  
+  document.querySelectorAll('.hf-scroll-to').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // fermeture menu mobile
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+      const navbarCollapse = document.getElementById('navClient');
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+        bsCollapse.hide();
+      }
+    });
+  });
+});
+</script>
 
 </body>
 </html>

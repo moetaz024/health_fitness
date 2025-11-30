@@ -1,0 +1,70 @@
+{# templates/profile/index.html.twig #}
+{% extends 'base_client.html.twig' %}
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8 col-lg-7">
+
+    <div class="hf-card p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="hf-profile-avatar-big">
+            {% if user.prenom %}
+              {{ user.prenom|first|upper }}
+            {% else %}
+              {{ user.email|first|upper }}
+            {% endif %}
+          </div>
+          <div>
+            <div class="text-uppercase small text-muted">Profil membre</div>
+            <h2 class="mb-0">{{ user.prenom ?: user.email }}</h2>
+          </div>
+        </div>
+
+        <a href="{{ path('client_profile_edit') }}" class="btn hf-btn-primary">
+          <i class="fas fa-pen me-2"></i>Modifier
+        </a>
+      </div>
+
+      <hr class="my-3">
+
+      <table class="table table-borderless mb-0">
+        <tr>
+          <th class="text-muted" style="width:200px;">👤 Nom</th>
+          <td>{{ user.nom ?: '-' }}</td>
+        </tr>
+        <tr>
+          <th class="text-muted">✨ Prénom</th>
+          <td>{{ user.prenom ?: '-' }}</td>
+        </tr>
+        <tr>
+          <th class="text-muted">🎂 Date de naissance</th>
+          <td>
+            {{ user.dateNaissance ? user.dateNaissance|date('Y-m-d') : '-' }}
+          </td>
+        </tr>
+        <tr>
+          <th class="text-muted">📧 Gmail</th>
+          <td>{{ user.email }}</td>
+        </tr>
+      </table>
+
+      <hr class="my-3">
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{{ path('client_services') }}" class="btn hf-btn-outline">
+          <i class="fas fa-dumbbell me-2"></i>Retour Services
+        </a>
+        <a href="{{ path('client_orders') }}" class="btn hf-btn-outline">
+          <i class="fas fa-receipt me-2"></i>Mes commandes
+        </a>
+        <a href="{{ path('client_reservations') }}" class="btn hf-btn-outline">
+          <i class="fas fa-calendar-check me-2"></i>Mes réservations
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

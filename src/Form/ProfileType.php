@@ -39,7 +39,11 @@ class ProfileType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Gmail',
+<<<<<<< HEAD
                 'disabled' => true, // ✅ ما نخلوش يبدّل Gmail (اختياري)
+=======
+                'disabled' => true, 
+>>>>>>> 82a889c (fixed admin dashboard)
                 'attr' => [
                     'class' => 'form-control form-control-lg'
                 ]

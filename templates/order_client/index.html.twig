@@ -6,6 +6,7 @@
 
 {% for o in orders %}
   <div class="card p-3 mb-3">
+<<<<<<< HEAD
     <div class="d-flex justify-content-between">
       <div>
         <b>Commande #{{ o.id }}</b><br>
@@ -14,24 +15,46 @@
       <div class="text-end">
         <div class="fw-bold">{{ o.montantTotal }} DT</div>
         <div class="badge-soft mt-1">{{ o.statut ?? o.etat ?? o.status }}</div>
+=======
+    <div class="text-white d-flex justify-content-between">
+      <div>
+        <b>Commande #{{ o.id }}</b><br>
+        <span class="small">{{ o.dateCreation|date('Y-m-d H:i') }}</span>
+      </div>
+      <div class="text-white text-end">
+        <div class="text-white fw-bold">{{ o.montantTotal }} DT</div>
+        <div class="text-white badge-soft mt-1">{{ o.statut ?? o.etat ?? o.status }}</div>
+>>>>>>> 82a889c (fixed admin dashboard)
       </div>
     </div>
 
     <hr>
 
+<<<<<<< HEAD
     <ul class="mb-0">
+=======
+    <ul class="text-white mb-0">
+>>>>>>> 82a889c (fixed admin dashboard)
       {% for it in o.orderItems %}
         <li>{{ it.product.nom }} x {{ it.quantiter ?? it.quantite }}</li>
       {% endfor %}
     </ul>
   </div>
 {% else %}
+<<<<<<< HEAD
   <div class="card p-4 text-center">
+=======
+  <div class="text-white card p-4 text-center">
+>>>>>>> 82a889c (fixed admin dashboard)
     <p>Aucune commande.</p>
   </div>
 {% endfor %}
 
+<<<<<<< HEAD
 <a class="btn btn-outline-light" href="{{ path('client_products') }}">
+=======
+<a class="text-white btn btn-outline-light" href="{{ path('client_products') }}">
+>>>>>>> 82a889c (fixed admin dashboard)
   Retour Produits
 </a>
 {% endblock %}

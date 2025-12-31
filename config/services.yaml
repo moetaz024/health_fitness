@@ -1,6 +1,10 @@
 # config/services.yaml
 parameters:
+<<<<<<< HEAD
     coach_upload_dir: '%kernel.project_dir%/public/uploads/coachs'
+=======
+    coaches_directory: '%kernel.project_dir%/public/uploads/coachs'
+>>>>>>> 82a889c (fixed admin dashboard)
     service_upload_dir: '%kernel.project_dir%/public/uploads/services'
     product_upload_dir: '%kernel.project_dir%/public/uploads/products'
 

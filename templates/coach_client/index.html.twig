@@ -5,7 +5,11 @@
 <section class="hf-section">
   <div class="container">
     <h2 class="hf-section-title">NOS <span class="hf-hero-highlight">COACHS EXPERTS</span></h2>
+<<<<<<< HEAD
     <p class="text-center text-muted mb-5">Rencontrez notre équipe de coachs certifiés, dédiés à votre réussite sportive.</p>
+=======
+    <p class="text-center mb-5">Rencontrez notre équipe de coachs certifiés, dédiés à votre réussite sportive.</p>
+>>>>>>> 82a889c (fixed admin dashboard)
 
     <div class="row g-4">
       {% for c in coachs %}
@@ -15,14 +19,22 @@
               <img src="{{ asset('uploads/coachs/' ~ c.photo) }}" class="w-100 hf-img" alt="{{ c.nom }}">
             {% else %}
               <div class="hf-img bg-dark d-flex align-items-center justify-content-center">
+<<<<<<< HEAD
                 <i class="fas fa-user-tie fa-3x text-muted"></i>
+=======
+                <i class="fas fa-user-tie fa-3x text-white"></i>
+>>>>>>> 82a889c (fixed admin dashboard)
               </div>
             {% endif %}
 
             <div class="p-4">
               <h5 class="mb-1">{{ c.nom }}</h5>
               <div class="text-warning small mb-2">{{ c.specialite }}</div>
+<<<<<<< HEAD
               <p class="small text-muted mb-3">{{ c.biographie|slice(0,80) }}...</p>
+=======
+              <p class="small mb-3">{{ c.biographie|slice(0,80) }}...</p>
+>>>>>>> 82a889c (fixed admin dashboard)
 
               <a class="btn hf-btn-outline btn-sm" href="{{ path('client_coach_show', {id: c.id}) }}">
                 Voir Profil <i class="fas fa-arrow-right ms-1"></i>
@@ -32,9 +44,15 @@
         </div>
       {% else %}
         <div class="col-12 text-center py-5">
+<<<<<<< HEAD
           <i class="fas fa-user-tie fa-3x text-muted mb-3"></i>
           <h4 class="text-muted">Aucun coach disponible</h4>
           <p class="text-muted">Revenez bientôt pour découvrir nos experts.</p>
+=======
+          <i class="fas fa-user-tie fa-3x mb-3"></i>
+          <h4 class="text-white">Aucun coach disponible</h4>
+          <p class="text-white">Revenez bientôt pour découvrir nos experts.</p>
+>>>>>>> 82a889c (fixed admin dashboard)
         </div>
       {% endfor %}
     </div>

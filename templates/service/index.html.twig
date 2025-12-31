@@ -9,7 +9,11 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h1 class="h3 mb-1">Services</h1>
+<<<<<<< HEAD
             <p class="text-muted mb-0">Gère tous les services proposés dans Health Fitness.</p>
+=======
+            <p class="mb-0">Gère tous les services proposés dans Health Fitness.</p>
+>>>>>>> 82a889c (fixed admin dashboard)
         </div>
         <a href="{{ path('app_service_new') }}" class="btn btn-success rounded-pill px-4">
             ➕ Nouveau service
@@ -22,7 +26,11 @@
                 <table class="table table-hover mb-0 align-middle">
                     <thead class="table-light">
                         <tr>
+<<<<<<< HEAD
                             <th>#</th>
+=======
+                            <th>id</th>
+>>>>>>> 82a889c (fixed admin dashboard)
                             <th>Titre</th>
                             <th>Description</th>
                             <th>Prix</th>
@@ -37,17 +45,28 @@
                         <tr>
                             <td>{{ service.id }}</td>
                             <td class="fw-semibold">{{ service.titre }}</td>
+<<<<<<< HEAD
                             <td class="text-muted" style="max-width: 260px;">
                                 {{ service.description|u.truncate(80, '…') }}
+=======
+                            <td class="text-black" style="max-width: 360px;">
+                                {{ service.description|u.truncate(250, '…') }}
+>>>>>>> 82a889c (fixed admin dashboard)
                             </td>
                             <td>{{ service.prix }}</td>
                             <td>{{ service.duree }}</td>
                             <td><span class="badge bg-secondary">{{ service.categorie }}</span></td>
                             <td>
                                 {% if service.image %}
+<<<<<<< HEAD
                                     <span class="text-muted small">{{ service.image }}</span>
                                 {% else %}
                                     <span class="text-muted small">—</span>
+=======
+                                    <img src="{{ asset('uploads/services/' ~ service.image) }}" alt="{{ service.titre }}" width="100">
+                                {% else %}
+                                    No photo available
+>>>>>>> 82a889c (fixed admin dashboard)
                                 {% endif %}
                             </td>
                             <td class="text-end">
@@ -65,7 +84,11 @@
                         </tr>
                     {% else %}
                         <tr>
+<<<<<<< HEAD
                             <td colspan="8" class="text-center text-muted py-4">
+=======
+                            <td colspan="8" class="text-center  py-4">
+>>>>>>> 82a889c (fixed admin dashboard)
                                 Aucun service trouvé.
                             </td>
                         </tr>

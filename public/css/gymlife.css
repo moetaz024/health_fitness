@@ -3,7 +3,11 @@
   --hf-bg-main: #050509;
   --hf-bg-main-alt: #000;
   --hf-text-main: #f2f2f2;
+<<<<<<< HEAD
   --hf-text-muted: #b3b3b3;
+=======
+  --hf-text-white: #f2f2f2;
+>>>>>>> 82a889c (fixed admin dashboard)
   --hf-border-subtle: rgba(255, 255, 255, 0.06);
 
   --hf-orange: #ff9f1c;
@@ -346,7 +350,11 @@ body.hf-body {
   margin-bottom: 2rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+<<<<<<< HEAD
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+=======
+  text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
+>>>>>>> 82a889c (fixed admin dashboard)
 }
 
 .hf-hero-highlight {
@@ -359,7 +367,11 @@ body.hf-body {
 
 .hf-hero-subtitle {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
   margin-bottom: 3rem;
   line-height: 1.6;
   font-weight: 300;
@@ -506,7 +518,11 @@ body.hf-body {
 }
 
 .hf-footer-desc {
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
   line-height: 1.7;
   margin-bottom: 2rem;
   font-size: 1.1rem;
@@ -570,7 +586,11 @@ body.hf-body {
 }
 
 .hf-footer-links a {
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 1.1rem;
@@ -599,7 +619,11 @@ body.hf-body {
   display: flex;
   align-items: flex-start;
   margin-bottom: 1.5rem;
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
   font-size: 1.1rem;
   line-height: 1.5;
 }
@@ -624,7 +648,11 @@ body.hf-body {
 }
 
 .hf-footer-bottom-links a {
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
   text-decoration: none;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -639,7 +667,11 @@ body.hf-body {
   content: '•';
   position: absolute;
   right: -1rem;
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
 }
 
 .hf-footer-bottom-links a:last-child::after {
@@ -926,7 +958,11 @@ html {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+<<<<<<< HEAD
   color: var(--hf-text-muted);
+=======
+  color: var(--hf-text-white);
+>>>>>>> 82a889c (fixed admin dashboard)
 }
 
 .hf-profile-menu .dropdown-item {

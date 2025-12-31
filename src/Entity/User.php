@@ -54,14 +54,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+<<<<<<< HEAD
     // ✅ code reset mot de passe
+=======
+   
+>>>>>>> 82a889c (fixed admin dashboard)
     #[ORM\Column(length: 6, nullable: true)]
     private ?string $resetCode = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $resetCodeExpiresAt = null;
 
+<<<<<<< HEAD
     // ✅ code verification register
+=======
+    
+>>>>>>> 82a889c (fixed admin dashboard)
     #[ORM\Column(length: 6, nullable: true)]
     private ?string $verificationCode = null;
 

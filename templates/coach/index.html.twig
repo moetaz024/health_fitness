@@ -25,7 +25,17 @@
                 <td>{{ coach.specialite }}</td>
                 <td>{{ coach.biographie }}</td>
                 <td>{{ coach.experience }}</td>
+<<<<<<< HEAD
                 <td>{{ coach.photo }}</td>
+=======
+                <td>
+                    {% if coach.photo %}
+                        <img src="{{ asset('uploads/coachs/' ~ coach.photo) }}" alt="{{ coach.nom }}" width="100">
+                    {% else %}
+                        No photo available
+                    {% endif %}
+                </td>
+>>>>>>> 82a889c (fixed admin dashboard)
                 <td>
                     <a href="{{ path('app_coach_show', {'id': coach.id}) }}">show</a>
                     <a href="{{ path('app_coach_edit', {'id': coach.id}) }}">edit</a>

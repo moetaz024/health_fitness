@@ -17,7 +17,11 @@
             {% endif %}
           </div>
           <div>
+<<<<<<< HEAD
             <div class="text-uppercase small text-muted">Profil membre</div>
+=======
+            <div class="text-uppercase small text-white">Profil membre</div>
+>>>>>>> 82a889c (fixed admin dashboard)
             <h2 class="mb-0">{{ user.prenom ?: user.email }}</h2>
           </div>
         </div>
@@ -31,6 +35,7 @@
 
       <table class="table table-borderless mb-0">
         <tr>
+<<<<<<< HEAD
           <th class="text-muted" style="width:200px;">👤 Nom</th>
           <td>{{ user.nom ?: '-' }}</td>
         </tr>
@@ -40,12 +45,27 @@
         </tr>
         <tr>
           <th class="text-muted">🎂 Date de naissance</th>
+=======
+          <th class="text-black" style="width:200px;">👤 Nom</th>
+          <td>{{ user.nom ?: '-' }}</td>
+        </tr>
+        <tr>
+          <th class="text-black">✨ Prénom</th>
+          <td>{{ user.prenom ?: '-' }}</td>
+        </tr>
+        <tr>
+          <th class="text-black">🎂 Date de naissance</th>
+>>>>>>> 82a889c (fixed admin dashboard)
           <td>
             {{ user.dateNaissance ? user.dateNaissance|date('Y-m-d') : '-' }}
           </td>
         </tr>
         <tr>
+<<<<<<< HEAD
           <th class="text-muted">📧 Gmail</th>
+=======
+          <th class="text-black">📧 Gmail</th>
+>>>>>>> 82a889c (fixed admin dashboard)
           <td>{{ user.email }}</td>
         </tr>
       </table>

@@ -66,6 +66,13 @@ class RegistrationFormType extends AbstractType
                             'minMessage' => 'Minimum 8 caractères',
                             'max' => 4096,
                         ]),
+<<<<<<< HEAD
+=======
+                        new Regex([
+                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,4096}$/',
+                            'message' => 'Votre mot de passe doit inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.',
+                        ])
+>>>>>>> 82a889c (fixed admin dashboard)
                     ],
                 ],
                 'second_options' => [

@@ -9,7 +9,11 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h1 class="h3 mb-1">Détail du service</h1>
+<<<<<<< HEAD
             <p class="text-muted mb-0">Informations complètes sur ce service.</p>
+=======
+            <p class="mb-0">Informations complètes sur ce service.</p>
+>>>>>>> 82a889c (fixed admin dashboard)
         </div>
 
         <div class="d-flex gap-2">
@@ -50,9 +54,15 @@
                 <dt class="col-sm-3">Image</dt>
                 <dd class="col-sm-9">
                     {% if service.image %}
+<<<<<<< HEAD
                         <span class="text-muted">{{ service.image }}</span>
                     {% else %}
                         <span class="text-muted">—</span>
+=======
+                        <span class="text-white">{{ service.image }}</span>
+                    {% else %}
+                        <span class="text-white">—</span>
+>>>>>>> 82a889c (fixed admin dashboard)
                     {% endif %}
                 </dd>
             </dl>

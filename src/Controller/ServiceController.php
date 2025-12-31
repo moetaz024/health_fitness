@@ -33,13 +33,21 @@ final class ServiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+<<<<<<< HEAD
             // ✅ HANDLE UPLOAD
             $file = $form->get('imageFile')->getData();
+=======
+            // ✅ Correct upload
+            $file = $form->get('image')->getData();
+>>>>>>> 82a889c (fixed admin dashboard)
             if ($file) {
                 $newName = uniqid() . '.' . $file->guessExtension();
                 $file->move($this->getParameter('service_upload_dir'), $newName);
 
+<<<<<<< HEAD
                 // ⚠️ إذا اسم champ متاع الصورة موش "image" بدّل setImage()
+=======
+>>>>>>> 82a889c (fixed admin dashboard)
                 $service->setImage($newName);
             }
 
@@ -71,8 +79,13 @@ final class ServiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+<<<<<<< HEAD
             // ✅ HANDLE UPLOAD (edit)
             $file = $form->get('imageFile')->getData();
+=======
+            // ✅ Correct upload (edit)
+            $file = $form->get('image')->getData();
+>>>>>>> 82a889c (fixed admin dashboard)
             if ($file) {
                 $newName = uniqid() . '.' . $file->guessExtension();
                 $file->move($this->getParameter('service_upload_dir'), $newName);

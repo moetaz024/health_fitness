@@ -2,10 +2,14 @@
 {% block title %}Produits{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 <div class="hf-hero mb-4">
   <h1 class="mb-1">Produits Fitness</h1>
   <p class="text-muted mb-0">Équipe-toi avec la meilleure qualité.</p>
 </div>
+=======
+
+>>>>>>> 82a889c (fixed admin dashboard)
 
 <div class="row g-3">
   {% for p in products %}
@@ -17,12 +21,21 @@
                class="hf-img mb-2" alt="product image">
         {% endif %}
 
+<<<<<<< HEAD
         <h6 class="mb-1">{{ p.nom }}</h6>
         <div class="small text-muted mb-2">{{ p.categorie }}</div>
 
         <div class="d-flex justify-content-between align-items-center">
           <div class="fw-bold">{{ p.prix }} DT</div>
           <div class="small text-muted">Stock: {{ p.stock }}</div>
+=======
+        <h6 class="text-white mb-1">{{ p.nom }}</h6>
+        <div class="text-white small mb-2">{{ p.categorie }}</div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-white fw-bold">{{ p.prix }} DT</div>
+          <div class="small text-white">Stock: {{ p.stock }}</div>
+>>>>>>> 82a889c (fixed admin dashboard)
         </div>
 
         <a class="btn btn-primary btn-sm mt-2 w-100"

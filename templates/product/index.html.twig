@@ -27,7 +27,17 @@
                 <td>{{ product.prix }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.categorie }}</td>
+<<<<<<< HEAD
                 <td>{{ product.image }}</td>
+=======
+                <td>
+                    {% if product.image %}
+                        <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.nom }}" width="100">
+                    {% else %}
+                        No photo available
+                    {% endif %}
+                 </td>
+>>>>>>> 82a889c (fixed admin dashboard)
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>

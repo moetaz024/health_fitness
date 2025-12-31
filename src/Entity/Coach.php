@@ -25,8 +25,13 @@ class Coach
     #[ORM\Column(type: Types::TEXT)]
     private ?string $biographie = null;
 
+<<<<<<< HEAD
     #[ORM\Column]
     private ?int $experience = null;
+=======
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $experience = null;
+>>>>>>> 82a889c (fixed admin dashboard)
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
@@ -83,12 +88,20 @@ class Coach
         return $this;
     }
 
+<<<<<<< HEAD
     public function getExperience(): ?int
+=======
+    public function getExperience(): ?string
+>>>>>>> 82a889c (fixed admin dashboard)
     {
         return $this->experience;
     }
 
+<<<<<<< HEAD
     public function setExperience(int $experience): static
+=======
+    public function setExperience(string $experience): static
+>>>>>>> 82a889c (fixed admin dashboard)
     {
         $this->experience = $experience;
 
@@ -125,6 +138,14 @@ class Coach
         return $this;
     }
 
+<<<<<<< HEAD
+=======
+    public function __toString(): string
+{
+    return $this->getNom(); // or getPrenom(), getUsername(), whatever field you want
+}
+
+>>>>>>> 82a889c (fixed admin dashboard)
     public function removeService(Service $service): static
     {
         if ($this->services->removeElement($service)) {
